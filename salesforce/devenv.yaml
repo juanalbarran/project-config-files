@@ -1,0 +1,4 @@
+# devenv.yaml
+inputs:
+  sfdx-nix:
+    url: github:rfaulhaber/sfdx-nix
