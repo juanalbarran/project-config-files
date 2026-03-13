@@ -1,5 +1,5 @@
-# devenv-config-files
-Devenv config files for the different projects i work
+# project-config-files
+`Devenv` and `tmux` config files for the different projects i work
 
 ## Salesforce
 This configuration contains the necesary files to work in saleforce projects.
