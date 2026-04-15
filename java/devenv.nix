@@ -4,6 +4,8 @@
   database_name = "database_name";
   database_username = "database_username";
   database_password = "database_password";
+  database_host = "database_host";
+  database_port = "database_port";
 in {
   # https://devenv.sh/basics/
   env.GREET = "Java & Spring Boot Development";
@@ -11,6 +13,8 @@ in {
   env.database_name = database_name;
   env.database_username = database_username;
   env.database_password = database_password;
+  env.database_host = database_host;
+  env.database_port = database_port;
 
   packages = with pkgs; [
     maven
@@ -30,9 +34,13 @@ in {
     enable = true;
     package = pkgs.postgresql_18;
     initialDatabases = [{name = database_name;}];
-    listen_addresses = "127.0.0.1";
-    # Optional: If you want to use a specific port to avoid conflicts
-    port = 5432;
+    listen_addresses = database_host;
+    port = database_port;
+
+    initialScript = ''
+      CREATE USER ${database_username} WITH PASSWORD '${database_password}' SUPERUSER;
+      ALTER DATABASE ${database_name} OWNER TO ${database_username};
+    '';
   };
 
   enterShell = ''
@@ -40,7 +48,7 @@ in {
     java -version
     mvn -version
     echo "------------------------------------------------"
-    echo "DB: postgresql://localhost:5432/$database_name"
+    echo "DB: postgresql://${database_host}:${toString database_port}/${database_name}"
     echo "------------------------------------------------"
   '';
 }
