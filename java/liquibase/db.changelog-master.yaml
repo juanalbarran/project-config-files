@@ -1,0 +1,5 @@
+# java/db.changelog-master.yaml
+databaseChangeLog:
+  # Explicitly include your migration files here in the order they should run
+  - include:
+      file: db/changelog/changes/001-initial-schema.yaml
