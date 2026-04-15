@@ -1,3 +1,4 @@
+# rust/devenv.nix
 {pkgs, ...}: {
   # https://devenv.sh/basics/
   env.GREET = "devenv";
