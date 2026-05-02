@@ -4,8 +4,9 @@
   database_name = "database_name";
   database_username = "database_username";
   database_password = "database_password";
-  database_host = "database_host";
-  database_port = "database_port";
+  database_host = "127.0.0.1";
+  database_port = 5432;
+  allowed-origins = "http://localhost:3000";
 in {
   # https://devenv.sh/basics/
   env.GREET = "Java & Spring Boot Development";
@@ -15,6 +16,8 @@ in {
   env.database_password = database_password;
   env.database_host = database_host;
   env.database_port = database_port;
+
+  env.allowed-origins = allowed-origins;
 
   packages = with pkgs; [
     maven
@@ -36,7 +39,6 @@ in {
     initialDatabases = [{name = database_name;}];
     listen_addresses = database_host;
     port = database_port;
-
     initialScript = ''
       CREATE USER ${database_username} WITH PASSWORD '${database_password}' SUPERUSER;
       ALTER DATABASE ${database_name} OWNER TO ${database_username};
